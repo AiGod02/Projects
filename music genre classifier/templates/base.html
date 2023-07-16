@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link rel="stylesheet" href="{% static 'css/' %}" >
+    <title>Music Genre Classifier</title>
+
+</head>
+<body>
+    <h1>Music Genre Classifier</h1>
+     <form method="post" enctype="multipart/form-data" action="predictmusic">
+
+ {% csrf_token %}
+ <center>
+ <div class="col-md-5 col-sm-5" ><label for="fname">Upload music File Here:</label> </div>
+ <br>
+ <input name="audiopath" type="file"><br><br>
+</center>
+
+ <center><input type="submit" value="Submit" > </div></center>
+<center>
+ <h2>The classification of the music is{{predicted_label}}</h2>
+<!--<audio controls>-->
+<!--  <source src="{{filefilePathName }}" type="audio/wav">-->
+
+<!--Your browser does not support the audio element.-->
+<!--</audio>-->
+</center>
+<!-- {{filePathName}}-->
+
+</form>
+<br>
+<!--    <button id="classify-btn" ]>record</button>-->
+<!--    <a href="{% url 'record_audio' %}">Record Audio    </a>-->
+
+    <p id="result"></p>
+
+   <script  src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
