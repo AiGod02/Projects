@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <style>
+        label {
+            font-weight: bold;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="js/jquery-1.8.2.min.js"></script>
+        <script>
+            $(document).ready(function(){
+               
+               $("#txtEmail").blur(function(){
+                  
+                       var emailVal=$("#txtEmail").val();
+                       //fire AJAX request
+                       var URLKuch="/AJAXChekEmail?emailidKuch="+emailVal;
+                       //var URLKuch="/AJAXChekEmail?emailidKuch="+emailVal+"&pwd="+pwdVal+"&type="+typeVal;
+
+//sending AJAX request
+       $.get(URLKuch,function(resp)//call back function
+                           {
+                               alert(resp);//string
+                           })
+
+               });
+            });
+            
+        
+        $("#sig").click(function(){
+            var emailVal=$("#txtEmail").val();
+            var URLKuch="/jsonFechRecord?emailidKuch="+emailVal;
+            $.getJSON(URLKuch,function(jsonArray)//json array
+            {
+                alert(jsonArray.length+"  Records/Objects Received");
+                    alert(JSON.stringify(jsonArray));//0 or 1 records in string format
+                    $("#name").val(jsonArray[0].name);
+                    $("#contactno").val(jsonArray[0].contactno);
+                    $("#txtAddress").val(jsonArray[0].address);
+                    $('#city').val(jsonArray[0].city);
+                    $('#company').val(jsonArray[0].companyname);
+                    $('#site').val(jsonArray[0].site);
+                    $('#idproof').val(jsonArray[0].site);
+                    $('#profilepic').val(jsonArray[0].site);
+                   
+                    
+                    $("#prev").prop("src","uploads/"+jsonArray[0].profilepic);
+
+            })
+        });
+    </script>
+</head>
+
+<body style="background-color: gainsboro;">
+    <div class="container" style="background-color: white;">
+        <div class="row bg-danger ">
+            <div class="col-md-12 text-center text-white">
+                <h2>Sharktank</h2>
+            </div>
+        </div>
+
+        <!-- to send pic/file with data method="post" and enctype="multipart/form-data" are MUST -->
+    <form  method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="txtEmail" value="">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label"> &nbsp; </label>
+                <button type="submit" class="form-control btn btn-primary" id="sig">search</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="txtname" value="">
+            </div>
+            <div  class="col-md-6">
+                <label class="form-label">contact</label>
+                <input type="text" class="form-control" name="txtcontact" value="">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <label class="form-label">Address</label>
+                <input type="text" class="form-control" id="txtAddress" name="txtAddress" value="">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">city</label>
+                <input type="text" class="form-control" id="city" name="txtcity" value="">
+            </div>
+            <div  class="col-md-6">
+                <label class="form-label">companyname</label>
+                <input type="text" class="form-control" id="company" name="txtcompany" value="">
+            </div>
+              
+            </div>
+            
+
+            <div class="row mt-3">
+                <div class="col-md-2">
+                    <label class="form-label">site </label>
+                    <input type="text" class="form-control" id="site" name="txtsite" value="">
+
+                </div>
+                
+            </div>
+            
+                
+            
+
+
+               
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="formFile" class="form-label">profile pic</label>
+                    <input class="form-control" type="file" id="profilepic" name="profilepic">
+                </div>
+                <div class="col-md-6">
+                    <label for="formFile" class="form-label">id proof</label>
+                    <input class="form-control" type="file" id="idproof" name="idproof">
+                </div>
+                <div class="col-md-6">
+                    <img src="pics/google.png" width="100" height="100" alt="">
+                </div>
+                <div class="col-md-6">
+                    <img src="pics/google.png" width="100" height="100" alt="">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-2">
+                    <label class="form-label">otherinfo</label>
+                    <textarea class="form-control" name="info" value=""> </textarea>
+
+                </div>
+                
+            </div>
+        
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                        <input type="submit" formaction="/profilepro" class="btn btn-danger" value="Send to Server">
+                        <input type="submit" formaction="/profile-delete" class="btn btn-danger" value="Delete">
+                        <input type="submit" formaction="/profile-update" class="btn btn-danger" value="Update">
+
+                </div>
+            </div>
+
+        </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

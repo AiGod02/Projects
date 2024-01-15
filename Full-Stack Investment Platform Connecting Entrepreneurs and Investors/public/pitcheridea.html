@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <style>
+        label {
+            font-weight: bold;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="js/jquery-1.8.2.min.js"></script>
+        <script>
+            $("#idea").click(function(){
+            var emailVal=$("#txtEmail").val();
+            var URLKuch="/jsonFechRecord?emailidKuch="+emailVal;
+            $.getJSON(URLKuch,function(jsonArray)//json array
+            {
+                alert(jsonArray.length+"  Records/Objects Received");
+                    alert(JSON.stringify(jsonArray));//0 or 1 records in string format
+                    $("#category").val(jsonArray[0].category);
+                    $("#ititle").val(jsonArray[0].title);
+                    $("#work").val(jsonArray[0].works);
+                    $("#txtcity").val(jsonArray[0].city);
+                    $("#work").val(jsonArray[0].works);
+                    $("#income").val(jsonArray[0].income);
+                    $("#fund").val(jsonArray[0].fund);
+                    $("#years").val(jsonArray[0].years);
+                    $("#investment").val(jsonArray[0].investment);
+                    $("#partners").val(jsonArray[0].partners);
+                    $("#info").val(jsonArray[0].info);
+                    $("#prev").prop("src","uploads/"+jsonArray[0].profilepic);
+
+            })
+        });
+            
+    </script>
+</head>
+
+<body style="background-color: gainsboro;">
+    <div class="container" style="background-color: white;">
+        <div class="row bg-danger ">
+            <div class="col-md-12 text-center text-white">
+                <h2>Sharktank</h2>
+            </div>
+        </div>
+
+        <!-- to send pic/file with data method="post" and enctype="multipart/form-data" are MUST -->
+    <form  method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="txtEmail" id="txtEmail" value="" required>
+            </div>
+           
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label class="form-label">category</label>
+                <input type="text" class="form-control" id="category" name="category" value="">
+            </div>
+            <div  class="col-md-6">
+                <label class="form-label">idea title</label>
+                <input type="text" class="form-control" name="ititle" value="">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <label class="form-label">How it help people/works</label>
+                <input type="text" class="form-control" name="work" id="work" value="">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">present income</label>
+                <input type="text" class="form-control" id="income" name="income" value="">
+            </div>
+            <div  class="col-md-6">
+                <!-- <label class="form-label">already fun raised</label>
+                <input type="radio" class="form-control" id="yes" name="yes/no" value="yes" >
+                <label for="yes">yes</label><br>
+                <input type="radio" class="form-control" id="no" name="yes/no" value="no">
+                <label for="no">NO</label><br> -->
+                  <label class="form-label" id="fund">already fun raised</label><br>
+                <input type="radio" id="yes" name="yesno" value="Yes">
+                <label for="yes">yes</label><br>
+                <input type="radio" id="no" name="yesno" value="CSS">
+                <label for="no">NO</label><br>
+                
+            </div>
+              
+            </div>
+            
+
+            <div class="row mt-3">
+                <div class="col-md-2">
+                    <label class="form-label" required id="year">started in year </label>
+                    <input type="date" class="form-control" id="years" name="sdate" value="">
+
+                </div>
+                
+            </div>
+            
+                
+            
+
+
+               
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="investment" id="investment" class="form-label" required>investment</label>
+                    <select name="investment" id="investment">
+                        <option value="4000000">4000000</option>
+                        <option value="5000000">5000000</option>
+                        <option value="10000000">10000000</option>
+                        <option value="20000000">20000000</option>
+                      </select>
+   
+                </div>
+                <div class="col-md-6">
+                   <label for="partners" required>no of partners/shareholder</label>
+                   <input type="text" id="partners" name="partners">
+
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-2">
+                    <label class="form-label" >otherinfo</label>
+                    <textarea class="form-control" id="info" name="info" value=""> </textarea>
+
+                </div>
+                
+            </div>
+        
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                        <input type="submit" formaction="ideapro" class="btn btn-danger"id="idea" value="List idea">
+                       
+
+                </div>
+            </div>
+
+        </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

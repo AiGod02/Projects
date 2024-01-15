@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <title>Document</title>
+    <script>
+        var module=angular.module("myModule",[]);
+        module.controller("myController",function($scope,$http){
+
+            //-----------------
+            $scope.doFetchAll=function()
+            {
+                var url="/jsonFetchRecord";
+                
+                    $http.get(url).then(fxSuccessKuch,fxFailedKuch);
+                function fxSuccessKuch(response)
+                    {
+                        //alert(JSON.stringify(response.data)); //json array will be stored in .data
+                        $scope.tableJson=response.data;
+                    }
+                function fxFailedKuch(response)
+                    {
+                        alert(response.data);
+                    }
+            }
+
+           
+            $scope.doDelete=function(email)
+            {
+                    $http.get("/ajax-delete?email="+email).then(fxSuccessKuch,fxFailedKuch);
+                    function fxSuccessKuch(response)
+                    {
+                        alert(response.data);//string msg
+                    
+                    }
+                function fxFailedKuch(response)
+                    {
+                        alert(response.data);
+                    }
+            }
+
+        })
+       </script>
+</head>
+<body ng-app="myModule" ng-controller="myController">
+   
+    <hr>
+    <center>
+        <h2>Fetching Data from Server</h2>
+        <input type="button" value="Show All" ng-click="doFetchAll();">
+
+        <table width="500" border="1">
+            <tr>
+                <th>email</th>
+                <th>name</th>
+                <th>contactno</th>
+                <th>address</th>
+                <th>city</th>
+                <th>companyname</th>
+                <th>site</th>
+                <th>idprrof</th>
+                <th>profilepic</th>
+            </tr>
+            <tr ng-repeat="obj in tableJson">
+                <td>
+                    {{$index}}
+                </td>
+                    <td>{{obj.email}}</td>
+                    <td>{{obj.address}}</td>
+                    <td>{{obj.contactno}}</td>
+                    <td>{{obj.address}}</td>
+                    <td>{{obj.city}}</td>
+                    <td>{{obj.companyname}}</td>
+                    <td>{{obj.site}}</td>
+                    <td>{{obj.idprrof}}</td>
+                    
+                    <td>{{obj.profilepic}}</td>
+                    <td>
+                        <img src="uploads/{{obj.profilepic}}" width="60" height="60" alt="">
+                    </td>
+                  
+                    <th>
+                        <input type="button" value="Delete" ng-click="doDelete(obj.email);">
+                    </th>
+            </tr>
+        </table>
+    </center>  
+
+</body>
+</html>
